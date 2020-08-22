@@ -1,0 +1,10 @@
+E:\ComIT学习\project\SnakeEatBean\SnakeEatBean\bin\Debug\SnakeEatBean.exe.config
+E:\ComIT学习\project\SnakeEatBean\SnakeEatBean\bin\Debug\SnakeEatBean.exe
+E:\ComIT学习\project\SnakeEatBean\SnakeEatBean\bin\Debug\SnakeEatBean.pdb
+E:\ComIT学习\project\SnakeEatBean\SnakeEatBean\obj\Debug\SnakeEatBean.csprojAssemblyReference.cache
+E:\ComIT学习\project\SnakeEatBean\SnakeEatBean\obj\Debug\SnakeEatBean.Properties.Resources.resources
+E:\ComIT学习\project\SnakeEatBean\SnakeEatBean\obj\Debug\SnakeEatBean.csproj.GenerateResource.cache
+E:\ComIT学习\project\SnakeEatBean\SnakeEatBean\obj\Debug\SnakeEatBean.csproj.CoreCompileInputs.cache
+E:\ComIT学习\project\SnakeEatBean\SnakeEatBean\obj\Debug\SnakeEatBean.exe
+E:\ComIT学习\project\SnakeEatBean\SnakeEatBean\obj\Debug\SnakeEatBean.pdb
+E:\ComIT学习\project\SnakeEatBean\SnakeEatBean\obj\Debug\SnakeEatBean.MainForm.resources
