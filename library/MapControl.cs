@@ -124,7 +124,8 @@ namespace SnakeEatBean.library
         public static void DrawMapBox(Panel panel, Color color, int x, int y, int width, int height)
         {
             var g = panel.CreateGraphics();
-            g.FillRectangle(new HatchBrush(HatchStyle.Percent90, color), x * width + 1, y * height + 1, width - 1, height - 1);
+            //g.FillRectangle(new HatchBrush(HatchStyle.Percent90, color), x * width + 1, y * height + 1, width - 1, height - 1);
+            g.FillRectangle(new SolidBrush(color), x * width + 1, y * height + 1, width - 1, height - 1);
         }
 
         /// <summary>

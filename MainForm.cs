@@ -19,6 +19,7 @@ namespace SnakeEatBean
         private ModelEnum.Direction _direction;
         private bool b_initMap = false;
         private bool b_initSnake = false;
+       
 
         public MainForm()
         {
@@ -32,7 +33,8 @@ namespace SnakeEatBean
          
         private void BtnIniMap_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show("Map");
+            if (ConfigHelper.b_debug)
+                MessageBox.Show("Map");
             _map = MapHelper.GenMap(ConfigHelper.RowCount, ConfigHelper.ColCount, ConfigHelper.BoxWidth, ConfigHelper.BoxHeight, ConfigHelper.LineColor, ConfigHelper.MapColor);
             MapHelper.DrawMap(palMap, _map);
             b_initMap = true;
@@ -40,6 +42,9 @@ namespace SnakeEatBean
 
         private void BtnIniSnake_Click_1(object sender, EventArgs e)
         {
+            if (ConfigHelper.b_debug)
+                MessageBox.Show("snake");
+
             if (!b_initMap)
             {
                 MessageBox.Show("There is no Map, Please click initMap firstly");
@@ -50,22 +55,21 @@ namespace SnakeEatBean
             _snake = MapHelper.GenSnake(ConfigHelper.Speed, ConfigHelper.SnakeColor);  
             _snake = MapHelper.DrawSnakeOnMap(palMap, _map, _snake);
             _direction = _snake.Direction;
-
-            MessageBox.Show("snake");
-            
-
-
+             
         }
 
         private void BtnStartMove_Click_1(object sender, EventArgs e)
         {
+            if (ConfigHelper.b_debug)
+                MessageBox.Show("move");
+
             if (!b_initSnake)
             {
                 MessageBox.Show("There is no Snake, Please click initSnake firstly");
                 return;
             }
   
-            MessageBox.Show("move");
+
         }
     }
 }

@@ -119,6 +119,8 @@ namespace SnakeEatBean.models
         public static int Speed = 500;
         public static Color SnakeColor = Color.Aqua;
         public static Color MapColor = Color.LightBlue;
-        public static Color LineColor = Color.Black; 
+        public static Color LineColor = Color.Black;
+
+        public static bool b_debug = false;
     }
 }
