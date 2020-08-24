@@ -68,8 +68,11 @@ namespace SnakeEatBean
                 MessageBox.Show("There is no Snake, Please click initSnake firstly");
                 return;
             }
-  
 
         }
+
+       
+
+				 
     }
 }

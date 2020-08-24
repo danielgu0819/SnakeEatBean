@@ -14,19 +14,39 @@ namespace SnakeEatBean
         [STAThread]
         static void Main()
         {
-            /*int i_playtime = 0;
-            Application.Idle += delegate
+            int i_playtime = 0;
+            /*Application.Idle += delegate（）
             {                
                 if(i_playtime == 10)
                 {
                     MessageBox.Show("Too long you have played this game!");                   
                 }
                 i_playtime++;
+                //ConsoleKey key = Console.ReadKey(true).Key;
+                                
             }*/
+
+            //ConsoleKey key = Console.ReadKey(true).Key;
+            Application.Idle += Application_Idle;
+            void Application_Idle(object sender, EventArgs e)
+            {
+                if (i_playtime == 100)
+                {
+                    MessageBox.Show("Hi,young man, too long you have played !");
+                    i_playtime = 0;
+                }
+                i_playtime++;
+               
+            }
+                         
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+
+
+
+
         }
     }
 }
