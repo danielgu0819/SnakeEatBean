@@ -15,6 +15,11 @@ namespace SnakeEatBean
     public partial class MainForm : Form
     {
         private ModelMap _map;
+        private ModelMapSnake _snake;
+        private ModelEnum.Direction _direction;
+        private bool b_initMap = false;
+        private bool b_initSnake = false;
+
         public MainForm()
         {
             InitializeComponent();
@@ -30,16 +35,36 @@ namespace SnakeEatBean
             MessageBox.Show("Map");
             _map = MapHelper.GenMap(ConfigHelper.RowCount, ConfigHelper.ColCount, ConfigHelper.BoxWidth, ConfigHelper.BoxHeight, ConfigHelper.LineColor, ConfigHelper.MapColor);
             MapHelper.DrawMap(palMap, _map);
+            b_initMap = true;
         }
 
         private void BtnIniSnake_Click_1(object sender, EventArgs e)
         {
+            if (!b_initMap)
+            {
+                MessageBox.Show("There is no Map, Please click initMap firstly");
+                return;
+            }
+            b_initSnake = true;
+
+            _snake = MapHelper.GenSnake(ConfigHelper.Speed, ConfigHelper.SnakeColor);  
+            _snake = MapHelper.DrawSnakeOnMap(palMap, _map, _snake);
+            _direction = _snake.Direction;
+
             MessageBox.Show("snake");
+            
+
 
         }
 
         private void BtnStartMove_Click_1(object sender, EventArgs e)
         {
+            if (!b_initSnake)
+            {
+                MessageBox.Show("There is no Snake, Please click initSnake firstly");
+                return;
+            }
+  
             MessageBox.Show("move");
         }
     }

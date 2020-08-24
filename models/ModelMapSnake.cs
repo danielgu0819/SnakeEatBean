@@ -90,19 +90,19 @@ namespace SnakeEatBean.models
     public class ModelMapSnake
     {
         /// <summary>
-        /// 移动速度
+        /// 移动速度  moving speed
         /// </summary>
         public int Speed { get; set; }
         /// <summary>
-        /// 蛇身颜色
+        /// 蛇身颜色  snake body color
         /// </summary>
         public Color Color { get; set; }
         /// <summary>
-        /// 运动方向
+        /// 运动方向  moving direction
         /// </summary>
         public ModelEnum.Direction Direction { get; set; }
         /// <summary>
-        /// 蛇身格子实体结合
+        /// 蛇身格子实体结合 
         /// </summary>
         public List<ModelElement> Body { get; set; }
     }

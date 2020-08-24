@@ -89,7 +89,31 @@ namespace SnakeEatBean.library
         }
 
         /// <summary>
-        /// 格子颜色填充 fill grid color 
+        /// init snake entity, set default coordinate 
+        /// </summary>
+        /// <param name="speed"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static ModelMapSnake GenSnake(int speed, Color color)
+        {
+            return new ModelMapSnake
+            {
+                Color = color,
+                Speed = speed,
+                Direction = ModelEnum.Direction.Down,
+                Body = new List<ModelElement>
+                        {
+                            new ModelElement
+                                {
+                                    Abscissa = 0,
+                                    Ordinate = 0
+                                }
+                        }
+            };
+        }
+
+        /// <summary>
+        /// 格子颜色填充 draw grid for map or snake body
         /// </summary>
         /// <param name="panel"></param>
         /// <param name="color"></param>
@@ -102,6 +126,51 @@ namespace SnakeEatBean.library
             var g = panel.CreateGraphics();
             g.FillRectangle(new HatchBrush(HatchStyle.Percent90, color), x * width + 1, y * height + 1, width - 1, height - 1);
         }
+
+        /// <summary>
+        /// using a grid (two groups of coordinate) represents a body of snake
+        /// </summary>
+        /// <param name="map"></param>
+        /// <param name="snake"></param>
+        /// <returns></returns>
+        public static ModelMapSnake GenSnakeOnMap(ModelMap map, ModelMapSnake snake)  
+        {
+            var sk = snake;
+            var centerX = map.Row / 2;
+            var centerY = map.Column / 2;
+            sk.Body = new List<ModelElement>
+                {
+                    new ModelElement
+                        {
+                            Abscissa = centerX,
+                            Ordinate = centerY
+                        },
+                    new ModelElement
+                        {
+                            Abscissa = centerX,
+                            Ordinate = centerY - 1
+                        }
+                };
+            return sk;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="map"></param>
+        /// <param name="snake"></param>
+        /// <returns></returns>
+        public static ModelMapSnake DrawSnakeOnMap(Panel panel, ModelMap map, ModelMapSnake snake)
+        {
+            snake = GenSnakeOnMap(map, snake);
+            foreach (var b in snake.Body)
+            {
+                DrawMapBox(panel, snake.Color, b.Abscissa, b.Ordinate, map.Box.Width, map.Box.Height);
+            }
+            return snake;
+        }
+
     }
 }
 
