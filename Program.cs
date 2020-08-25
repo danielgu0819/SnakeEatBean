@@ -25,20 +25,17 @@ namespace SnakeEatBean
                 //ConsoleKey key = Console.ReadKey(true).Key;
                                 
             }*/
-
-            //ConsoleKey key = Console.ReadKey(true).Key;
+                        
             Application.Idle += Application_Idle;
             void Application_Idle(object sender, EventArgs e)
             {
-                if (i_playtime == 100)
+                if (i_playtime == 1000)
                 {
                     MessageBox.Show("Hi,young man, too long you have played !");
                     i_playtime = 0;
                 }
-                i_playtime++;
-               
+                i_playtime++;               
             }
-                         
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
