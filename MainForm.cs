@@ -71,8 +71,31 @@ namespace SnakeEatBean
 
         }
 
-       
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
 
-				 
+            if(keyData == Keys.Left)
+            {
+                MessageBox.Show("There is Left ");
+            }
+            else if(keyData == Keys.Right)
+            {
+                MessageBox.Show("There is Right ");
+            }else if(keyData == Keys.Up)
+            {
+                MessageBox.Show("There is Up ");
+            }else if(keyData == Keys.Down)
+            {
+                MessageBox.Show("There is Down ");
+            }
+            else
+            {
+                MessageBox.Show("There is others");
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+
     }
 }

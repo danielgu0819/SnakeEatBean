@@ -81,6 +81,7 @@
             this.Controls.Add(this.btnIniSnake);
             this.Controls.Add(this.btnIniMap);
             this.Controls.Add(this.palMap);
+            this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "SankeEatBean";
             this.Load += new System.EventHandler(this.MainForm_Load);
