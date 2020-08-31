@@ -19,7 +19,8 @@ namespace SnakeEatBean
         private ModelEnum.Direction _direction;
         private bool b_initMap = false;
         private bool b_initSnake = false;
-       
+  
+
 
         public MainForm()
         {
@@ -58,6 +59,11 @@ namespace SnakeEatBean
              
         }
 
+        /// <summary>
+        /// using time class to move snake
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnStartMove_Click_1(object sender, EventArgs e)
         {
             if (ConfigHelper.b_debug)
@@ -69,30 +75,45 @@ namespace SnakeEatBean
                 return;
             }
 
+            tmControl.Interval = _snake.Speed;
+
+            tmControl.Start();
+
         }
+
+        private void TmControl_Tick(object sender, EventArgs e)
+        {
+            tmControl.Stop();
+            tmControl.Interval = _snake.Speed;
+
+            _snake = MapHelper.MoveSnakeOnMap(palMap, _map, _snake, _direction );
+
+            tmControl.Start();
+        }
+
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            if (ConfigHelper.b_debug)
+                MessageBox.Show("ProcessCmdKey is processing ");
 
-            if(keyData == Keys.Left)
+            if (keyData == Keys.Left)
             {
-                MessageBox.Show("There is Left ");
+                _direction = ModelEnum.Direction.Left;
             }
             else if(keyData == Keys.Right)
             {
-                MessageBox.Show("There is Right ");
-            }else if(keyData == Keys.Up)
-            {
-                MessageBox.Show("There is Up ");
-            }else if(keyData == Keys.Down)
-            {
-                MessageBox.Show("There is Down ");
+                _direction = ModelEnum.Direction.Right;
             }
-            else
+            else if(keyData == Keys.Up)
             {
-                MessageBox.Show("There is others");
+                _direction = ModelEnum.Direction.Up;
             }
-
+            else if(keyData == Keys.Down)
+            {
+                _direction = ModelEnum.Direction.Down;
+            }
+       
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

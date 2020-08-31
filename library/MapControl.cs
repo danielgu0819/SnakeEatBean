@@ -154,7 +154,77 @@ namespace SnakeEatBean.library
                 };
             return sk;
         }
+
+        /// <summary>
+        /// 蛇身在移动图上移动  moving snake
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="map"></param>
+        /// <param name="snake"></param>
+        /// <param name="direction"></param>
+        /// <param name="enableBack"></param>
+        /// <param name="dead"></param>
+        /// <returns></returns>
+        public static ModelMapSnake MoveSnakeOnMap(Panel panel, ModelMap map, ModelMapSnake snake, ModelEnum.Direction direction )
+        {
         
+         
+             if (direction.Equals(ModelEnum.Direction.Up) && snake.Direction.Equals(ModelEnum.Direction.Down))
+                    direction = snake.Direction;
+             else if (direction.Equals(ModelEnum.Direction.Down) && snake.Direction.Equals(ModelEnum.Direction.Up))
+                    direction = snake.Direction;
+             else if (direction.Equals(ModelEnum.Direction.Left) && snake.Direction.Equals(ModelEnum.Direction.Right))
+                    direction = snake.Direction;
+             else if (direction.Equals(ModelEnum.Direction.Right) && snake.Direction.Equals(ModelEnum.Direction.Left))
+                    direction = snake.Direction;
+            
+
+            var head = new ModelElement
+            {
+                Abscissa = snake.Body[0].Abscissa,
+                Ordinate = snake.Body[0].Ordinate
+            };
+            switch (direction)
+            {
+                case ModelEnum.Direction.Left:
+                    head.Abscissa--;
+                    break;
+                case ModelEnum.Direction.Right:
+                    head.Abscissa++;
+                    break;
+                case ModelEnum.Direction.Up:
+                    head.Ordinate--;
+                    break;
+                case ModelEnum.Direction.Down:
+                    head.Ordinate++;
+                    break;
+            }
+            if (head.Abscissa < 0) head.Abscissa = map.Column - 1;
+            else if (head.Abscissa == map.Column) head.Abscissa = 0;
+            if (head.Ordinate < 0) head.Ordinate = map.Row - 1;
+            else if (head.Ordinate == map.Row) head.Ordinate = 0;
+
+                   
+
+            var tail = snake.Body[snake.Body.Count - 1];
+            //var m = map.Body.SingleOrDefault(t => t.Bonus && t.Abscissa == tail.Abscissa && t.Ordinate == tail.Ordinate);
+            //if (m == null){
+                DrawMapBox(panel, map.Color, tail.Abscissa, tail.Ordinate, map.Box.Width, map.Box.Height);
+                snake.Body.Remove(tail);
+           /* }
+            else
+            {
+                DrawMapBox(panel, snake.Color, head.Abscissa, head.Ordinate, map.Box.Width, map.Box.Height);
+                m.Bonus = false;
+            }*/
+
+            DrawMapBox(panel, snake.Color, head.Abscissa, head.Ordinate, map.Box.Width, map.Box.Height);
+            snake.Body.Insert(0, head);
+            snake.Direction = direction;
+
+            return snake;
+        }
+
         /// <summary>
         /// 
         /// </summary>
