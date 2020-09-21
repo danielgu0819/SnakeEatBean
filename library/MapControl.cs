@@ -207,16 +207,17 @@ namespace SnakeEatBean.library
                    
 
             var tail = snake.Body[snake.Body.Count - 1];
-            //var m = map.Body.SingleOrDefault(t => t.Bonus && t.Abscissa == tail.Abscissa && t.Ordinate == tail.Ordinate);
-            //if (m == null){
+            var m = map.Body.SingleOrDefault(t => t.Bean && t.Abscissa == tail.Abscissa && t.Ordinate == tail.Ordinate);
+            if (m == null)
+            {
                 DrawMapBox(panel, map.Color, tail.Abscissa, tail.Ordinate, map.Box.Width, map.Box.Height);
                 snake.Body.Remove(tail);
-           /* }
+            }
             else
             {
                 DrawMapBox(panel, snake.Color, head.Abscissa, head.Ordinate, map.Box.Width, map.Box.Height);
-                m.Bonus = false;
-            }*/
+                m.Bean = false;
+            }
 
             DrawMapBox(panel, snake.Color, head.Abscissa, head.Ordinate, map.Box.Width, map.Box.Height);
             snake.Body.Insert(0, head);
@@ -242,7 +243,46 @@ namespace SnakeEatBean.library
             return snake;
         }
 
+        public static ModelElement NewBonus(int x, int y)
+        {
+            var rm = new Random();
+            var bonus = new ModelElement
+            {
+                Abscissa = rm.Next(0, x),
+                Ordinate = rm.Next(0, y),
+                Bean = true
+            };
+            return bonus;
+        }
+        public static ModelMap ShowBonus(Panel panel, ModelMap map, ModelMapSnake snake, Color color)
+        {
+            var b = NewBonus(map.Row - 1, map.Column - 1);
+            while (snake.Body.Count(s => s.Equals(b)) > 0)
+            {
+                b = NewBonus(map.Row - 1, map.Column - 1);
+            }
+            var m = map.Body.SingleOrDefault(t => t.Abscissa == b.Abscissa && t.Ordinate == b.Ordinate);
+            if (m != null)
+            {
+                DrawMapBox(panel, color, m.Abscissa, m.Ordinate, map.Box.Width, map.Box.Height);
+                m.Bean = true;
+            }
+            return map;
+        }
+
+        public static ModelMap HideBonus(Panel panel, ModelMap map)
+        {
+            var ms = map.Body.Where(t => t.Bean);
+            foreach (var m in ms)
+            {
+                DrawMapBox(panel, map.Color, m.Abscissa, m.Ordinate, map.Box.Width, map.Box.Height);
+                m.Bean = false;
+            }
+            return map;
+        }
     }
+
+   
 }
 
     

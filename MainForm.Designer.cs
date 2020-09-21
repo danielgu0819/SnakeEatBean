@@ -105,6 +105,7 @@
         private System.Windows.Forms.Button btnIniSnake;
         private System.Windows.Forms.Button btnStartMove;
         private System.Windows.Forms.Timer tmControl;
+        public static int SnakeClimbNum = 0;
     }
 }
 

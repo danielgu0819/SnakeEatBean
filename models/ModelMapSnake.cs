@@ -25,7 +25,12 @@ namespace SnakeEatBean.models
             Abscissa = 0;
             Ordinate = 0; 
         }
+
+        /// 奖励属性
+        /// </summary>
+        public bool Bean { get; set; }
     }
+
     /// <summary>
     /// 地图格子大小属性实体  map grid size model
     /// </summary>
@@ -120,7 +125,8 @@ namespace SnakeEatBean.models
         public static Color SnakeColor = Color.Aqua;
         public static Color MapColor = Color.LightBlue;
         public static Color LineColor = Color.Black;
-
+        public static int SnakeClimbNum = 0;
         public static bool b_debug = false;
+        public static Color BeanColor= Color.Red;
     }
 }
