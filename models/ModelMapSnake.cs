@@ -121,12 +121,14 @@ namespace SnakeEatBean.models
         public static int BoxWidth = 25;
         public static int BoxHeight = 25;
 
-        public static int Speed = 500;
-        public static Color SnakeColor = Color.Aqua;
+        public static int Speed = 400;
+        public static int radius = 20; //Bean's radius 
+        public static Color SnakeColor = Color.DarkBlue;
         public static Color MapColor = Color.LightBlue;
-        public static Color LineColor = Color.Black;
+        public static Color LineColor = Color.LightBlue;
         public static int SnakeClimbNum = 0;
         public static bool b_debug = false;
-        public static Color BeanColor= Color.Red;
+        public static Color BeanColor= Color.Brown;
+        public const int BeanShowTime = 20;
     }
 }

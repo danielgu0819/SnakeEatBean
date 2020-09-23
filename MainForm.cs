@@ -90,7 +90,7 @@ namespace SnakeEatBean
 
             if (ConfigHelper.SnakeClimbNum == 0)
                 _map = MapHelper.ShowBonus(palMap, _map, _snake, ConfigHelper.BeanColor);
-            else if (ConfigHelper.SnakeClimbNum == 10)
+            else if (ConfigHelper.SnakeClimbNum == ConfigHelper.BeanShowTime)
             {
                 _map = MapHelper.HideBonus(palMap, _map);
                 ConfigHelper.SnakeClimbNum = -1;

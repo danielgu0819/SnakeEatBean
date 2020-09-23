@@ -69,14 +69,14 @@ namespace SnakeEatBean.library
             #region 画横线
             for (int ri = 0; ri <= map.Row; ri++)
             {
-                g.DrawLine(new Pen(Color.Black), 0, ri * map.Box.Height, map.Column * map.Box.Width, ri * map.Box.Height);
+                g.DrawLine(new Pen(ConfigHelper.LineColor), 0, ri * map.Box.Height, map.Column * map.Box.Width, ri * map.Box.Height);
             }
 
             #endregion
             #region 画竖线
             for (int ci = 0; ci <= map.Column; ci++)
             {
-                g.DrawLine(new Pen(Color.Black), ci * map.Box.Width, 0, ci * map.Box.Height, map.Row * map.Box.Width);
+                g.DrawLine(new Pen(ConfigHelper.LineColor), ci * map.Box.Width, 0, ci * map.Box.Height, map.Row * map.Box.Width);
             }
             #endregion
             #region 勾画方块
@@ -125,7 +125,16 @@ namespace SnakeEatBean.library
         {
             var g = panel.CreateGraphics();
             //g.FillRectangle(new HatchBrush(HatchStyle.Percent90, color), x * width + 1, y * height + 1, width - 1, height - 1);
+            //g.FillRectangle(new SolidBrush(color), x * width + 1, y * height + 1, width - 1, height - 1);
             g.FillRectangle(new SolidBrush(color), x * width + 1, y * height + 1, width - 1, height - 1);
+            //g.FillRectangle(new SolidBrush(Color.Transparent), x * width + 1, y * height + 1, width - 1, height - 1);
+
+        }
+
+        public static void DrawMapBean(Panel panel, Color color, int x, int y, int width, int height)
+        {
+            var g = panel.CreateGraphics();
+            g.FillEllipse(new SolidBrush(color), x * width + 1, y * height + 1, ConfigHelper.radius, ConfigHelper.radius);
         }
 
         /// <summary>
@@ -264,7 +273,8 @@ namespace SnakeEatBean.library
             var m = map.Body.SingleOrDefault(t => t.Abscissa == b.Abscissa && t.Ordinate == b.Ordinate);
             if (m != null)
             {
-                DrawMapBox(panel, color, m.Abscissa, m.Ordinate, map.Box.Width, map.Box.Height);
+                //DrawMapBox(panel, color, m.Abscissa, m.Ordinate, map.Box.Width, map.Box.Height);
+                DrawMapBean(panel, color, m.Abscissa, m.Ordinate, map.Box.Width, map.Box.Height);
                 m.Bean = true;
             }
             return map;

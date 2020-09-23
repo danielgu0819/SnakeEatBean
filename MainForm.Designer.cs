@@ -28,14 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.palMap = new System.Windows.Forms.Panel();
             this.btnIniMap = new System.Windows.Forms.Button();
             this.btnIniSnake = new System.Windows.Forms.Button();
             this.btnStartMove = new System.Windows.Forms.Button();
-            this.components = new System.ComponentModel.Container();
             this.tmControl = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
-
             // 
             // palMap
             // 
@@ -74,13 +73,11 @@
             this.btnStartMove.Text = "PlayTheGame";
             this.btnStartMove.UseVisualStyleBackColor = true;
             this.btnStartMove.Click += new System.EventHandler(this.BtnStartMove_Click_1);
-
-            //
-            //tmControl , using time class 
-            //
+            // 
+            // tmControl
+            // 
             this.tmControl.Interval = 1000;
             this.tmControl.Tick += new System.EventHandler(this.TmControl_Tick);
-
             // 
             // MainForm
             // 
