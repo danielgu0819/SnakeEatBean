@@ -19,6 +19,7 @@ namespace SnakeEatBean
         private ModelEnum.Direction _direction;
         private bool b_initMap = false;
         private bool b_initSnake = false;
+        private int corSwitch = 0;
   
 
 
@@ -31,11 +32,22 @@ namespace SnakeEatBean
         {
             return;
         }
-         
+          
         private void BtnIniMap_Click_1(object sender, EventArgs e)
         {
             if (ConfigHelper.b_debug)
                 MessageBox.Show("Map");
+
+            if(corSwitch == 1)
+            {
+                ConfigHelper.MapColor = Color.LightGreen;
+                corSwitch = 0;
+            }else
+            {
+                ConfigHelper.MapColor = Color.LightBlue;
+                corSwitch = 1;
+            }
+
             _map = MapHelper.GenMap(ConfigHelper.RowCount, ConfigHelper.ColCount, ConfigHelper.BoxWidth, ConfigHelper.BoxHeight, ConfigHelper.LineColor, ConfigHelper.MapColor);
             MapHelper.DrawMap(palMap, _map);
             b_initMap = true;
@@ -46,6 +58,9 @@ namespace SnakeEatBean
             if (ConfigHelper.b_debug)
                 MessageBox.Show("snake");
 
+            if (b_initSnake)
+                return;
+
             if (!b_initMap)
             {
                 MessageBox.Show("There is no Map, Please click initMap firstly");
@@ -53,6 +68,7 @@ namespace SnakeEatBean
             }
             b_initSnake = true;
 
+   
             _snake = MapHelper.GenSnake(ConfigHelper.Speed, ConfigHelper.SnakeColor);  
             _snake = MapHelper.DrawSnakeOnMap(palMap, _map, _snake);
             _direction = _snake.Direction;
@@ -106,6 +122,16 @@ namespace SnakeEatBean
         {
             if (ConfigHelper.b_debug)
                 MessageBox.Show("ProcessCmdKey is processing ");
+
+            if (keyData == (Keys.Up | Keys.Shift)) //增速 increase moving speed
+            {
+                if (_snake.Speed > 50)
+                    _snake.Speed -= 50;
+            }
+            else if(keyData == (Keys.Down | Keys.Shift))
+            {
+                _snake.Speed += 50; 
+            }
 
             if (keyData == Keys.Left)
             {

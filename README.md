@@ -10,6 +10,11 @@ Step two：   using button “InitTheSnake” to create an “Snake”
 Step Three： click button "PlayTheGame" to move the "Snake" 
 Step Four :  using direction keys to control the "Snake"
 
+
+setting key：
+Shift+up ：increasing moving speed
+Shift+down : decreasing moving speed
+
 end of file.
 
  

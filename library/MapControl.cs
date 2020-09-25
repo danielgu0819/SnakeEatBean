@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Drawing;
 using SnakeEatBean.models;
+using System.Runtime.CompilerServices;
 
 namespace SnakeEatBean.library
 {
@@ -226,6 +227,8 @@ namespace SnakeEatBean.library
             {
                 DrawMapBox(panel, snake.Color, head.Abscissa, head.Ordinate, map.Box.Width, map.Box.Height);
                 m.Bean = false;
+                //eat bean...
+                
             }
 
             DrawMapBox(panel, snake.Color, head.Abscissa, head.Ordinate, map.Box.Width, map.Box.Height);
@@ -249,6 +252,7 @@ namespace SnakeEatBean.library
             {
                 DrawMapBox(panel, snake.Color, b.Abscissa, b.Ordinate, map.Box.Width, map.Box.Height);
             }
+         
             return snake;
         }
 

@@ -33,7 +33,7 @@
             this.btnIniMap = new System.Windows.Forms.Button();
             this.btnIniSnake = new System.Windows.Forms.Button();
             this.btnStartMove = new System.Windows.Forms.Button();
-            this.tmControl = new System.Windows.Forms.Timer(this.components);
+            this.tmControl = new System.Windows.Forms.Timer(this.components); 
             this.SuspendLayout();
             // 
             // palMap
@@ -87,7 +87,7 @@
             this.Controls.Add(this.btnStartMove);
             this.Controls.Add(this.btnIniSnake);
             this.Controls.Add(this.btnIniMap);
-            this.Controls.Add(this.palMap);
+            this.Controls.Add(this.palMap); 
             this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "SankeEatBean";
@@ -101,7 +101,7 @@
         private System.Windows.Forms.Button btnIniMap;
         private System.Windows.Forms.Button btnIniSnake;
         private System.Windows.Forms.Button btnStartMove;
-        private System.Windows.Forms.Timer tmControl;
+        private System.Windows.Forms.Timer tmControl; 
         public static int SnakeClimbNum = 0;
     }
 }
