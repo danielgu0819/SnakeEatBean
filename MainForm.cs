@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SnakeEatBean.models;
 using SnakeEatBean.library;
+using Microsoft.VisualBasic;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Core;
 
 namespace SnakeEatBean
 {
@@ -19,9 +23,12 @@ namespace SnakeEatBean
         private ModelEnum.Direction _direction;
         private bool b_initMap = false;
         private bool b_initSnake = false;
+        private bool b_startMove = false;
         private int corSwitch = 0;
-  
 
+        protected static IMongoClient __client;
+        protected static IMongoDatabase __database;
+        private static List<BsonDocument> __dataset;
 
         public MainForm()
         {
@@ -30,9 +37,45 @@ namespace SnakeEatBean
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.FormClosing += new FormClosingEventHandler(MainForm_Closing);
+             
+          
+            //connect database
+             MongoHelper.connMongoDatabase();
+             
+
+            if (ConfigHelper.__connectSuccess)
+            {
+                //query records,形成字串
+                string textShow = MongoHelper.queryMongo();
+                //展示在textbox上
+                textBox1.AppendText(textShow);
+            }
+            else
+            {
+                textBox1.Hide();
+                label2.Hide();
+            }
+
             return;
         }
-          
+
+        private void MainForm_Closing(object sender, CancelEventArgs e)
+        {
+            if (ConfigHelper.player_nickname != "no name" && ConfigHelper.player_nickname != ""&& ConfigHelper.player_nickname != "input your nickname")
+            {
+                MessageBox.Show("see you later，guy！", ConfigHelper.player_nickname);
+
+                MongoHelper.insertMongo(ConfigHelper.player_nickname, ConfigHelper.lengthSnake.ToString() );
+
+            }
+            else
+            {
+                MessageBox.Show("see you later！", ConfigHelper.player_nickname);
+            }
+                
+        }
+
         private void BtnIniMap_Click_1(object sender, EventArgs e)
         {
             if (ConfigHelper.b_debug)
@@ -58,7 +101,7 @@ namespace SnakeEatBean
             if (ConfigHelper.b_debug)
                 MessageBox.Show("snake");
 
-            if (b_initSnake)
+            if (b_initSnake&&b_startMove)
                 return;
 
             if (!b_initMap)
@@ -85,11 +128,18 @@ namespace SnakeEatBean
             if (ConfigHelper.b_debug)
                 MessageBox.Show("move");
 
+            if(ConfigHelper.__connectSuccess)
+                ConfigHelper.player_nickname = Interaction.InputBox("Hello guy, do you want a contest?", "Who is the winner", "input your nickname", -1, -1);
+            
+
+
             if (!b_initSnake)
             {
                 MessageBox.Show("There is no Snake, Please click initSnake firstly");
+                
                 return;
             }
+            b_startMove = true;
 
             tmControl.Interval = _snake.Speed;
 
@@ -114,9 +164,20 @@ namespace SnakeEatBean
 
             ConfigHelper.SnakeClimbNum++;
 
+            ConfigHelper.i_playtime++;
+            if (ConfigHelper.i_playtime  == 500)
+            {
+                MessageBox.Show("Hi,young man, too long you have played !");
+                ConfigHelper.i_playtime = 0;
+            }
+                                
+            
+
             tmControl.Start();
         }
 
+
+     
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -153,6 +214,6 @@ namespace SnakeEatBean
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-
+       
     }
 }

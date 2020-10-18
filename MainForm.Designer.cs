@@ -33,7 +33,11 @@
             this.btnIniMap = new System.Windows.Forms.Button();
             this.btnIniSnake = new System.Windows.Forms.Button();
             this.btnStartMove = new System.Windows.Forms.Button();
-            this.tmControl = new System.Windows.Forms.Timer(this.components); 
+            this.tmControl = new System.Windows.Forms.Timer(this.components);
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // palMap
@@ -79,20 +83,59 @@
             this.tmControl.Interval = 1000;
             this.tmControl.Tick += new System.EventHandler(this.TmControl_Tick);
             // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(400, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 450);
+            this.splitter1.TabIndex = 4;
+            this.splitter1.TabStop = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(430, 182);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(158, 153);
+            this.textBox1.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(430, 167);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 12);
+            this.label1.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(430, 157);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Records ：";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 450);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.btnStartMove);
             this.Controls.Add(this.btnIniSnake);
             this.Controls.Add(this.btnIniMap);
-            this.Controls.Add(this.palMap); 
+            this.Controls.Add(this.palMap);
             this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "SankeEatBean";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -103,6 +146,10 @@
         private System.Windows.Forms.Button btnStartMove;
         private System.Windows.Forms.Timer tmControl; 
         public static int SnakeClimbNum = 0;
+        private System.Windows.Forms.Splitter splitter1;
+        public System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

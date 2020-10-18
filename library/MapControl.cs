@@ -8,6 +8,9 @@ using System.Windows.Forms;
 using System.Drawing;
 using SnakeEatBean.models;
 using System.Runtime.CompilerServices;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Core;
 
 namespace SnakeEatBean.library
 {
@@ -228,7 +231,9 @@ namespace SnakeEatBean.library
                 DrawMapBox(panel, snake.Color, head.Abscissa, head.Ordinate, map.Box.Width, map.Box.Height);
                 m.Bean = false;
                 //eat bean...
-                
+                //length of snake
+                ConfigHelper.lengthSnake = snake.Body.Count();
+
             }
 
             DrawMapBox(panel, snake.Color, head.Abscissa, head.Ordinate, map.Box.Width, map.Box.Height);
@@ -252,7 +257,8 @@ namespace SnakeEatBean.library
             {
                 DrawMapBox(panel, snake.Color, b.Abscissa, b.Ordinate, map.Box.Width, map.Box.Height);
             }
-         
+
+            
             return snake;
         }
 
@@ -296,6 +302,83 @@ namespace SnakeEatBean.library
         }
     }
 
+     
+
+    public class MongoHelper
+    {
+ 
+
+        public static IMongoDatabase connMongoDatabase()
+        {
+
+            try
+            {
+                //连接服务端
+                MongoUrl url = new MongoUrl(ConfigHelper.__connectString); // url
+                MongoClientSettings settings = MongoClientSettings.FromUrl(url); // 从url 中获取setting
+                settings.ServerSelectionTimeout = new TimeSpan(0, 0, 1); // 设置寻找服务器的时间为2秒
+
+                ConfigHelper.__client = new MongoClient(ConfigHelper.__connectString);
+                ConfigHelper.__client.ListDatabaseNames();
+            }catch(Exception ex)
+            {
+                ConfigHelper.__connectSuccess = false;
+            }
+            //获取指定数据库
+            ConfigHelper.__database = ConfigHelper.__client.GetDatabase(ConfigHelper.__dbName);
+           
+            //queryMongo();
+
+            return ConfigHelper.__database;
+        }
+         
+
+        //public static IMongoCollection<BsonDocument> queryMongo()
+        public static string queryMongo()
+        {
+            string textShow = "Score of all players: \r\n";
+
+            ConfigHelper.__collection = ConfigHelper.__database.GetCollection<BsonDocument>(ConfigHelper.__dbName);
+            var filter = Builders<BsonDocument>.Filter.Empty;
+
+
+             var doc = ConfigHelper.__collection.Find(filter).Sort(Builders<BsonDocument>.Sort.Descending("score")).ToList();
+            //var doc = ConfigHelper.__collection.Find(filter).ToList();
+
+            doc.ForEach(p =>
+            {
+                //Console.WriteLine(p["name"].ToString() + " : " + p["score"].ToString());
+
+                textShow += "playername : " + p["name"].ToString() + "\r\n" +"score : " + p["score"].ToString() + "\r\n"+ "\r\n";
+
+            });
+
+            /* for(int i = 0; i<doc.Count; i++)
+            {               
+                String playername  = doc[i].GetValue("name");
+                String playerscore = doc[i].GetElement("score");
+
+            }
+            Console.WriteLine(doc);*/
+
+            return textShow;
+             
+        }
+
+
+        public static void insertMongo(string playername,string playerscore)
+        {
+
+            var document = new BsonDocument
+            {
+                { "name", playername }, { "score", int.Parse(playerscore) }
+
+            };
+            ConfigHelper.__collection = ConfigHelper.__database.GetCollection<BsonDocument>(ConfigHelper.__dbName);
+            ConfigHelper.__collection.InsertOneAsync(document);
+             
+        }
+    }
    
 }
 

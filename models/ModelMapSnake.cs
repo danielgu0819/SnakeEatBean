@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Core;
 
 
 namespace SnakeEatBean.models
@@ -130,5 +133,19 @@ namespace SnakeEatBean.models
         public static bool b_debug = false;
         public static Color BeanColor= Color.Brown;
         public const int BeanShowTime = 20;
+        public static string player_nickname = "no name";
+        public static int lengthSnake = 2;
+        public static int i_playtime = 0;
+
+
+        public static string __connectString = "mongodb://127.0.0.1:27017";
+        public static string __dbName = "snake";
+        public static IMongoClient __client;
+        public static IMongoDatabase __database;
+        public static IMongoCollection<BsonDocument> __collection;
+        public static bool __connectSuccess = true;
+
+
+
     }
 }
